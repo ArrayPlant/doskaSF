@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Подтверждение регистрации</title>
+</head>
+<body>
+    <h1>Подтверждение регистрации</h1>
+    <p>Введите свой e-mail и код подтверждения, который был выслан Вам на почту.</p>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Подтвердить</button>
+    </form>
+</body>
+</html>

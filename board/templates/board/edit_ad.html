@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать объявление</title>
+</head>
+<body>
+    <h1>Редактировать объявление</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Обновить</button>
+    </form>
+</body>
+    <br><a href="{% url 'board:my_ads' %}">Назад к моим объявлениям</a>
+</html>

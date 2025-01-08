@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Мои объявления</title>
+</head>
+<body>
+    <h1>Мои объявления</h1>
+    <ul>
+        {% for ad in ads %}
+            <li>
+                <a href="{% url 'board:detail_ad' pk=ad.pk %}">{{ ad.title }}</a>
+                ({{ ad.get_category_display }})
+                — <a href="{% url 'board:edit_ad' pk=ad.pk %}">Редактировать</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <hr>
+    <a href="{% url 'board:create_ad' %}">Создать новое объявление</a>
+    <br><br>
+    <a href="{% url 'board:responses_dashboard' %}">Посмотреть отклики</a><br><br>
+    <a href="/">
+        Вернуться на главную
+    </a>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{ announcement.title }}</title>
+</head>
+<body>
+    <h1>{{ announcement.title }}</h1>
+    <p>Категория: {{ announcement.get_category_display }}</p>
+    <p>{{ announcement.content }}</p>
+    <p>Автор: {{ announcement.author.username }}</p>
+
+    <hr>
+    <h3>Оставить отклик</h3>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Отправить</button>
+    </form>
+    <br>
+    <a href="{% url 'home' %}">Назад</a>
+
+
+</body>
+</html>

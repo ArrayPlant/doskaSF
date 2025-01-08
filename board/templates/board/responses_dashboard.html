@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Мои отклики</title>
+
+
+</head>
+<body>
+    <h1>Отклики на мои объявления</h1>
+    <form method="GET">
+        <label for="announcement">Фильтр по объявлению:</label>
+        <select id="announcement" name="announcement" onchange="this.form.submit()">
+            <option value="">Все</option>
+            {% for ad in user_announcements %}
+                <option value="{{ ad.id }}"
+                    {% if selected_announcement == ad.id|stringformat:"s" %}
+                        selected
+                    {% endif %}
+                >
+                {{ ad.title }}
+                </option>
+            {% endfor %}
+        </select>
+    </form>
+    <br>
+
+    {% if responses %}
+        <ul>
+        {% for resp in responses %}
+            <li>
+                <strong>Объявление:</strong> {{ resp.announcement.title }} <br>
+                <strong>Пользователь:</strong> {{ resp.user.username }} <br>
+                <strong>Текст:</strong> {{ resp.text }} <br>
+                <strong>Статус:</strong>
+                {% if resp.is_accepted %}
+                    Принят
+                {% else %}
+                    Не принят
+                {% endif %}
+                <br>
+                <a href="{% url 'board:accept_response' pk=resp.pk %}">Принять</a> |
+                <a href="{% url 'board:delete_response' pk=resp.pk %}">Удалить</a>
+            </li>
+            <hr>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Пока нет откликов.</p>
+    {% endif %}
+</body>
+    <a href="{% url 'board:my_ads' %}">Назад к моим объявлениям</a>
+</html>

@@ -1,0 +1,37 @@
+<!-- myproject/templates/home.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Главная страница</title>
+</head>
+<body>
+    <nav>
+        {% if user.is_authenticated %}
+            Привет, {{ user.username }}!
+            <!-- Кнопка (форма) для выхода через POST -->
+            <form method="POST" action="{% url 'accounts:logout' %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">Выйти</button>
+            </form>
+            <!-- Ссылка на мои объявления -->
+            <a href="{% url 'board:my_ads' %}">Перейти в мои объявления</a>
+        {% else %}
+            <!-- Ссылки "Войти" и "Регистрация" -->
+            <a href="{% url 'accounts:login' %}">Войти</a>
+            <a href="{% url 'accounts:register' %}">Регистрация</a>
+        {% endif %}
+    </nav>
+    <hr>
+    <h1>Все объявления</h1>
+    <ul>
+        {% for ann in announcements %}
+            <li>
+                <!-- Переход на детальную страницу объявления -->
+                <a href="{% url 'board:detail_ad' pk=ann.pk %}">{{ ann.title }}</a>
+                (Автор: {{ ann.author.username }}, Категория: {{ ann.get_category_display }})
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
